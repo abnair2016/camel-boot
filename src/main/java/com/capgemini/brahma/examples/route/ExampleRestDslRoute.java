@@ -59,7 +59,7 @@ public class ExampleRestDslRoute extends RouteBuilder {
                 .to("direct:myroute");
         
         from("properties:camel.route.endpoint")
-                .log(LoggingLevel.INFO, "Boom value is {{camel.route.endpoint}}")     //Just to show that it prints this property value here but doesn't accept the same format as route endpoint!! Weird!
+                .log(LoggingLevel.INFO, "Boom value is " + camelPropertyKey)     //Just to show that it prints this property value here but doesn't accept the same format as route endpoint!! Weird!
         	    .transform(constant("BOOOOOOOM!!!!!"));
 
     }
