@@ -9,6 +9,7 @@ import org.apache.activemq.spring.ActiveMQConnectionFactory;
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.properties.PropertiesComponent;
 import org.apache.camel.spring.boot.CamelContextConfiguration;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -20,7 +21,10 @@ import org.springframework.core.io.Resource;
  */
 @Configuration
 public class MyAppConfig {
-
+    
+    @Value("${concurrent.consumers}")
+    private int concurrentConsumers;
+    
     @Bean
     public PooledConnectionFactory getPooledConnectionFactory() {
         return new PooledConnectionFactory(new ActiveMQConnectionFactory());
@@ -29,10 +33,11 @@ public class MyAppConfig {
     protected void addActiveMQComponentToContext(CamelContext context) throws Exception {
         ActiveMQComponent activeMQComponent = new ActiveMQComponent();
         activeMQComponent.setConnectionFactory(getPooledConnectionFactory());
+        activeMQComponent.setConcurrentConsumers(concurrentConsumers);
         context.addComponent("activemq", activeMQComponent);
         context.addRoutes(new ActiveMQRoute());
     }
-    
+        
     /**
      * Access the camel context.
      * @return the camel context
@@ -77,7 +82,7 @@ public class MyAppConfig {
         resources[0] = new FileSystemResource("config/application.properties");
         resources[1] = new FileSystemResource("config/env.properties");
         resources[2] = new FileSystemResource("config/filemove.properties");
-        resources[3] = new FileSystemResource("config/ftp.properties");
+        resources[3] = new FileSystemResource("config/csvtransformpojo.properties");
         resources[4] = new FileSystemResource("config/hystrix.properties");
         resources[5] = new FileSystemResource("config/mq.properties");
         configurer.setLocations(resources);
