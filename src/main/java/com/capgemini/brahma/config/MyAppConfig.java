@@ -35,7 +35,6 @@ public class MyAppConfig {
         activeMQComponent.setConnectionFactory(getPooledConnectionFactory());
         activeMQComponent.setConcurrentConsumers(concurrentConsumers);
         context.addComponent("activemq", activeMQComponent);
-        context.addRoutes(new ActiveMQRoute());
     }
         
     /**
