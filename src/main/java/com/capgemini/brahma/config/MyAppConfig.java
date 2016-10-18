@@ -1,7 +1,6 @@
 package com.capgemini.brahma.config;
 
 import com.capgemini.archaius.spring.ArchaiusBridgePropertyPlaceholderConfigurer;
-import com.capgemini.brahma.examples.route.ActiveMQRoute;
 
 import org.apache.activemq.camel.component.ActiveMQComponent;
 import org.apache.activemq.pool.PooledConnectionFactory;
